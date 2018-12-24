@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask
+  namespace: flaskmonster
+spec:
+  selector:
+    app: flask
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monster
+  namespace: flaskmonster
+spec:
+  selector:
+    app: monster
+    ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-lb
+  namespace: flaskmonster
+spec:
+  type: LoadBalancer
+  externalIPs:
+  - X.X.X.X
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 5000
